@@ -1,0 +1,12 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-buttons slot="start">
+    <ion-back-button (click)="backToHistory()"></ion-back-button>
+  </ion-buttons>
+  <ion-toolbar>
+    <ion-searchbar (input)="onInputChange($event)" type="text" name="search-input" id="search-input" placeholder="Telusuri Notes Kamu" class="search__input"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-candidate-item [total]="totalCandidate" [candidates]="candidates" [status]="dataNotFound"></app-candidate-item>
+</ion-content>

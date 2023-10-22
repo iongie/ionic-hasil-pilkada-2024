@@ -1,0 +1,74 @@
+ion-col {
+    // background-color: var(--ion-color-medium);
+    border: solid 1px #fff;
+    color: #fff;
+    text-align: center;
+}
+
+ion-grid.menu__kategori {
+    --ion-grid-padding: 8px;
+
+    --ion-grid-padding-xs: 8px;
+    --ion-grid-padding-sm: 8px;
+    --ion-grid-padding-md: 8px;
+    --ion-grid-padding-lg: 8px;
+    --ion-grid-padding-xl: 8px;
+
+    --ion-grid-column-padding: 30px;
+
+    --ion-grid-column-padding-xs: 30px;
+    --ion-grid-column-padding-sm: 30px;
+    --ion-grid-column-padding-md: 30px;
+    --ion-grid-column-padding-lg: 30px;
+    --ion-grid-column-padding-xl: 30px;
+}
+
+.kategori {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border: solid 1px #fff;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+ion-grid.menu__kategori,
+ion-grid.hasil__pemilu
+ {
+    --ion-grid-padding: 8px;
+
+    --ion-grid-padding-xs: 8px;
+    --ion-grid-padding-sm: 8px;
+    --ion-grid-padding-md: 8px;
+    --ion-grid-padding-lg: 8px;
+    --ion-grid-padding-xl: 8px;
+}
+
+.menu__kategori__title {
+    color: var(--ion-color-dark-tint);
+}
+
+.menu__kategori__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border: solid 1px #fff;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+
+
+.menu__kategori__title::first-letter,
+.hasil__pemilu__title::first-letter {
+    text-transform: capitalize;
+}
+
+ion-thumbnail.info_candidate {
+    --size: 128px;
+    --border-radius: 14px;
+}

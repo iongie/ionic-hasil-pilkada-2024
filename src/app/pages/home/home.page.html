@@ -1,0 +1,140 @@
+<ion-header [translucent]="true" appTopBar>
+  <ion-toolbar>
+    <ion-title>Hai, {{name}}</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button>
+        <ion-icon name="person-circle" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="handleScrollStart($event)">
+  <ion-card color="primary">
+    <ion-card-content>
+      <ion-list class="ion-no-padding" lines="none">
+        <ion-item color="primary">
+          <ion-thumbnail class="info_candidate">
+            <img alt="Information" src="../../../assets/candidate.png" />
+          </ion-thumbnail>
+          <ion-label class="ion-text-wrap">
+            <h1>
+              Aplikasi Untuk Menghitung Cepat Pemilihan Umum 2004</h1>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid class="menu__kategori">
+    <ion-row>
+      <ion-text class="hasil__pemilu__title">
+        <h4>hasil Pemilu 2024</h4>
+      </ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-col class="menu__kategori__item" size="3" (click)="gotoPage(2)">
+        <ion-thumbnail class="kategori__thumbnail">
+          <img alt="Vote Dpr" src="../../../assets/vote.png" />
+        </ion-thumbnail>
+        <ion-label color="dark">dpd</ion-label>
+      </ion-col>
+      <ion-col class="menu__kategori__item" size="3" (click)="gotoPage(1)">
+        <ion-thumbnail>
+          <img alt="Vote Dpr" src="../../../assets/vote.png" />
+        </ion-thumbnail>
+        <ion-label color="dark">dpr</ion-label>
+      </ion-col>
+      <ion-col class="menu__kategori__item" size="3" (click)="gotoPage(3)">
+        <ion-thumbnail>
+          <img alt="Vote Dpr" src="../../../assets/vote.png" />
+        </ion-thumbnail>
+        <ion-label color="dark">dprd</ion-label>
+      </ion-col>
+      <ion-col class="menu__kategori__item" size="3" (click)="gotoPage(4)">
+        <ion-thumbnail>
+          <img alt="Vote Dpr" src="../../../assets/vote.png" />
+        </ion-thumbnail>
+        <ion-label color="dark">dprd provinsi</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="hasil__pemilu">
+    <ion-row>
+      <ion-text class="hasil__pemilu__title">
+        <h4>hasil Pemilu 2024</h4>
+      </ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-col size-lg="6" size-sm="12">
+        <ion-card color="primary">
+          <ion-card-content>
+            <ion-list class="ion-no-padding"  lines="none">
+              <ion-item color="primary">
+                <ion-thumbnail class="info_candidate">
+                  <img alt="Information" src="../../../assets/news-politics.png" />
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                  <h1>
+                    Hasil Vote DPD Belum ada</h1>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size-lg="6" size-sm="12">
+        <ion-card color="primary">
+          <ion-card-content>
+            <ion-list class="ion-no-padding"  lines="none">
+              <ion-item color="primary">
+                <ion-thumbnail class="info_candidate">
+                  <img alt="Information" src="../../../assets/news-politics.png" />
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                  <h1>
+                    Hasil Vote DPR Belum ada</h1>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size-lg="6" size-sm="12">
+        <ion-card color="primary">
+          <ion-card-content>
+            <ion-list class="ion-no-padding"  lines="none">
+              <ion-item color="primary">
+                <ion-thumbnail class="info_candidate">
+                  <img alt="Information" src="../../../assets/news-politics.png" />
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                  <h1>
+                    Hasil Vote DPRD Belum ada</h1>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size-lg="6" size-sm="12">
+        <ion-card color="primary">
+          <ion-card-content>
+            <ion-list class="ion-no-padding"  lines="none">
+              <ion-item color="primary">
+                <ion-thumbnail class="info_candidate">
+                  <img alt="Information" src="../../../assets/news-politics.png" />
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">
+                  <h1>
+                    Hasil Vote DPRD Provinsi Belum ada</h1>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

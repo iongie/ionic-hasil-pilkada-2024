@@ -1,0 +1,31 @@
+.image__login{
+    width: 256px;
+    height: 256px;
+}
+
+
+.login{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__title{
+    text-align: center;
+}
+
+.login__title h1::first-letter{
+    text-transform: capitalize;
+}
+
+ion-grid {
+    --ion-grid-column-padding: 8px;
+
+    --ion-grid-column-padding-xs: 8px;
+    --ion-grid-column-padding-sm: 8px;
+    --ion-grid-column-padding-md: 8px;
+    --ion-grid-column-padding-lg: 8px;
+    --ion-grid-column-padding-xl: 8px;
+}
