@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Subject, from, switchMap, takeUntil, tap, timer } from 'rxjs';
@@ -24,6 +24,8 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
     defaultCandidateValue
   ];
   candidate: Candidate = defaultCandidateValue
+  filterCandidate: Candidate[] = [defaultCandidateValue]
+  @Output() dataChanged = new EventEmitter<object>();
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
@@ -66,18 +68,27 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
     this.voteCalegForm.patchValue({ id_caleg: this.candidates[ev].id })
   }
 
+
+  updateCandidates(updateCandidate: any, id: any){
+    console.log(updateCandidate);
+    this.filterCandidate = this.candidates.filter(val => val.id !== id)
+    this.dataChanged.emit([updateCandidate, ...this.filterCandidate])
+  }
+
   simpanPolling() {
     this.voteCalegForm.valid
       && from(this.loadingCtrl.create({
         message: 'loading...',
-        duration: 500,
+        duration: 100,
       })).pipe(
         tap((loading) => loading.present()),
-        tap(() => timer(500)),
+        tap(() => timer(1000)),
         switchMap(() => this.token.getToken),
         switchMap((token) => this.callApi.post(this.voteCalegForm.value, 'vote-caleg', token)),
         tap(() => this.modalCtrl.dismiss(this.voteCaleg, 'confirm')),
-        tap(() => this.voteCalegForm.reset(defaultVoteCaleg))
+        tap(()=> this.candidate.jumlah_suara = this.voteCalegForm.value.total_suara),
+        tap(()=> this.updateCandidates(this.candidate, this.candidate.id)),
+        tap(() => this.voteCalegForm.reset(defaultVoteCaleg)),
       ).subscribe(
         {
           next: (res: any) => (

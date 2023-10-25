@@ -2,12 +2,18 @@
   <ion-toolbar>
     <ion-title>Hai, {{name}}</ion-title>
     <ion-buttons slot="secondary">
-      <ion-button>
+      <ion-button id="exit-app">
         <ion-icon name="person-circle" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-alert
+  trigger="exit-app"
+  header="Exit App!"
+  [buttons]="exitAppButtons"
+></ion-alert>
 
 <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="handleScrollStart($event)">
   <ion-card color="primary">
@@ -19,7 +25,7 @@
           </ion-thumbnail>
           <ion-label class="ion-text-wrap">
             <h1>
-              Aplikasi Untuk Menghitung Cepat Pemilihan Umum 2004</h1>
+              Selamat datang, ke aplikasi menghitung cepat Pemilihan Umum 2004</h1>
           </ion-label>
         </ion-item>
       </ion-list>

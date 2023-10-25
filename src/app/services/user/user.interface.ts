@@ -4,3 +4,11 @@ export interface User {
     name: string;
     username: string;
   }
+
+  export let defaultUser: User = {
+    id: '',
+    name: '',
+    username: ''
+  }
+
+  

@@ -31,7 +31,7 @@ export class CandidatePage implements OnInit, OnDestroy {
         takeUntil(this.destroy),
       )
       .subscribe({
-        error: (e) => (console.log(e), this.dataNotFound = e),
+        error: (e) => (this.dataNotFound = e),
         next: (res) => (this.candidates = res) 
       })
   }
@@ -59,6 +59,10 @@ export class CandidatePage implements OnInit, OnDestroy {
           this.totalCandidate = res.total_data
         )
       })
+  }
+
+  onDataChanged(updateCandidate: any) {
+    this.candidateServ.updateCandidate(updateCandidate)
   }
 
   onInputChange(ev: any) {

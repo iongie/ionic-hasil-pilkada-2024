@@ -9,6 +9,9 @@
                 <ion-img [src]="candidate.foto_caleg" [alt]="candidate.nama_calon"></ion-img>
               </ion-thumbnail>
               <div class="container">
+                <div class="container__chip">
+                  <ion-note>{{candidate.no_urut}}</ion-note>
+                </div>
                 <ng-container *ngIf="candidate.nama_partai !== '-'">
                   <ion-chip color="medium" [disabled]="true">
                     <ion-avatar>
@@ -18,62 +21,62 @@
                   </ion-chip>
                 </ng-container>
                 <ion-label class="ion-text-uppercase" color="dark" class="ion-text-wrap">
-                  <h1>{{candidate.nama_calon}}</h1>
+                  <strong>{{candidate.nama_calon}}</strong>
                 </ion-label>
                 <div class="container__chip">
-                  <ion-note color="medium">{{candidate.jenis_kelamin}}</ion-note>
-                  <ion-note color="medium">{{candidate.dapil}}</ion-note>
+                  <ion-badge>{{candidate.jenis_kelamin}}</ion-badge>
+                  <ion-badge color="medium">{{candidate.dapil}}</ion-badge>
                 </div>
               </div>
-              <ion-label slot="end">
-                <h1>{{candidate.no_urut}}</h1>
-              </ion-label>
+              <div slot="end">
+                <ion-badge color="warning">{{candidate.jumlah_suara == null ? 0: candidate.jumlah_suara}} Suara</ion-badge>
+              </div>
             </ion-item>
           </ion-list>
         </ion-col>
         <ion-modal [trigger]="'open-modal-'+candidate.id" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50]">
           <ng-template>
-            <ion-list>
-              <ion-item>
-                <ion-thumbnail class="foto_caleg" slot="start">
-                  <ion-img [src]="candidate.foto_caleg" [alt]="candidate.nama_calon"></ion-img>
-                </ion-thumbnail>
-                <div class="container">
-                  <ng-container *ngIf="candidate.nama_partai !== '-'">
-                    <ion-chip color="medium" [disabled]="true">
-                      <ion-avatar>
-                        <img [alt]="candidate.nama_calon" [src]="candidate.foto_caleg" />
-                      </ion-avatar>
-                      <ion-label>{{candidate.nama_calon}}</ion-label>
-                    </ion-chip>
-                  </ng-container>
-                  <ion-label class="ion-text-uppercase" color="dark" class="ion-text-wrap">
-                    <h1>{{candidate.nama_calon}}</h1>
-                  </ion-label>
-                  <div class="container__chip">
-                    <ion-note color="medium">{{candidate.jenis_kelamin}}</ion-note>
-                    <ion-note color="medium">{{candidate.dapil}}</ion-note>
+            <form class="voteCalegForm" [formGroup]="voteCalegForm" #formDir="ngForm" (submit)="simpanPolling()">
+              <ion-list>
+                <ion-item button detail="true">
+                  <ion-thumbnail class="foto_caleg" slot="start">
+                    <ion-img [src]="candidate.foto_caleg" [alt]="candidate.nama_calon"></ion-img>
+                  </ion-thumbnail>
+                  <div class="container">
+                    <div class="container__chip">
+                      <ion-note>{{candidate.no_urut}}</ion-note>
+                    </div>
+                    <ng-container *ngIf="candidate.nama_partai !== '-'">
+                      <ion-chip color="medium" [disabled]="true">
+                        <ion-avatar>
+                          <img [alt]="candidate.nama_calon" [src]="candidate.foto_caleg" />
+                        </ion-avatar>
+                        <ion-label>{{candidate.nama_calon}}</ion-label>
+                      </ion-chip>
+                    </ng-container>
+                    <ion-label class="ion-text-uppercase" color="dark" class="ion-text-wrap">
+                      <strong>{{candidate.nama_calon}}</strong>
+                    </ion-label>
+                    <div class="container__chip">
+                      <ion-badge>{{candidate.jenis_kelamin}}</ion-badge>
+                      <ion-badge color="medium">{{candidate.dapil}}</ion-badge>
+                    </div>
                   </div>
-                </div>
-                <ion-label slot="end">
-                  <h1>{{candidate.no_urut}}</h1>
-                </ion-label>
-              </ion-item>
-              <ion-item>
-                <form class="voteCalegForm" [formGroup]="voteCalegForm" #formDir="ngForm" (submit)="simpanPolling()">
-                  <ion-input id="no_tps" name="no_tps" type="number" aria-label="Vote" placeholder="Input Nomor TPS"
-                    label-placement="floating" fill="solid" label="Nomor TPS" formControlName="no_tps"
-                    [errorText]="noTpsRequest && 'Nomor TPS harus diisi'"></ion-input>
+                  <div slot="end">
+                    <ion-badge color="warning">{{candidate.jumlah_suara == null ? 0: candidate.jumlah_suara}} Suara</ion-badge>
+                  </div>
+                </ion-item>
+              </ion-list>
+              <ion-input id="no_tps" name="no_tps" type="number" aria-label="Vote" placeholder="Input Nomor TPS"
+                label-placement="floating" fill="outline" label="Nomor TPS" formControlName="no_tps"
+                [errorText]="noTpsRequest && 'Nomor TPS harus diisi'"></ion-input>
 
-                  <ion-input id="total_suara" name="total_suara" type="number" aria-label="Vote"
-                    placeholder="Input jumlah suara" label-placement="floating" fill="solid" label="Jumlah suara"
-                    formControlName="total_suara"
-                    [errorText]="totalSuaraRequest && 'Jumlah Suara Harus diisi'"></ion-input>
+              <ion-input id="total_suara" name="total_suara" type="number" aria-label="Vote"
+                placeholder="Input jumlah suara" label-placement="floating" fill="outline" label="Jumlah suara"
+                formControlName="total_suara" [errorText]="totalSuaraRequest && 'Jumlah Suara Harus diisi'"></ion-input>
 
-                  <ion-button type="submit" expand="block" [disabled]="!voteCalegForm.valid">Simpan</ion-button>
-                </form>
-              </ion-item>
-            </ion-list>
+              <ion-button type="submit" expand="block" [disabled]="!voteCalegForm.valid">Simpan</ion-button>
+            </form>
           </ng-template>
         </ion-modal>
       </ng-container>

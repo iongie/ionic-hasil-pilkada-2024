@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { from, of, switchMap, tap, timer } from 'rxjs';
+import { Subject, catchError, from, of, switchMap, takeUntil, tap, timer } from 'rxjs';
+import { Login, defaultLogin } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { MessageResponseService } from 'src/app/services/messageResponse/message-response.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -21,9 +22,10 @@ export interface ResponseLogin {
   styleUrls: ['./login.page.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class LoginPage implements OnInit {
-  login = { username: '', password: '' }
+export class LoginPage implements OnInit , OnDestroy{
+  login: Login = defaultLogin;
   loginForm!: FormGroup;
+  destroy = new Subject<void>()
   @Input() viewProgressBar: boolean = false;
   constructor(
     private callApi: CallApiService,
@@ -40,6 +42,11 @@ export class LoginPage implements OnInit {
       username: [this.login.username, [Validators.required]],
       password: [this.login.password, [Validators.required]]
     })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next()
+    this.destroy.complete()
   }
 
   get username() {
@@ -68,22 +75,26 @@ export class LoginPage implements OnInit {
         message: 'loading...',
         duration: 500,
       })).pipe(
+        takeUntil(this.destroy),
         tap((loading) => loading.present()),
-        switchMap(() => timer(500)),
-        switchMap(() => {
-          return this.callApi.post(this.loginForm.value, 'auth/login')
-        })
+        switchMap(() => timer(600)),
+        switchMap(() => this.callApi.post(this.loginForm.value, 'auth/login')),
+        tap(()=> this.router.navigate(['/home'])),
+        tap(()=> this.loginForm.markAsTouched()),
+        tap(()=> this.loginForm.reset(defaultLogin))
       ).subscribe(
         {
-          next: (res: any) => (this.token.updateToken(res.token), this.user.updateUser(res.user)),
+          next: (res: any) => (
+            this.token.updateToken(res.token), 
+            this.user.updateUser(res.user)
+          ),
           error: (e) => (
             this.messageResponse.updateMessageResponse(e.error.message),
             this.messageResponse.updateStatusResponse(true),
-            this.messageResponse.updatePositionResponse('bottom'),
-            this.messageResponse.updatePositionAnchorResponse('footer'),
+            this.messageResponse.updatePositionResponse('top'),
+            this.messageResponse.updatePositionAnchorResponse('header'),
             this.messageResponse.updateTypeResponse('dark')
-          ),
-          complete: () => this.router.navigate(['home'])
+          )
         })
   }
 

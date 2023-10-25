@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { authGuard } from './guards/auth/auth.guard';
+import { authGuard, backGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,7 +10,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canDeactivate: [backGuard]
   },
   {
     path: 'candidate',
