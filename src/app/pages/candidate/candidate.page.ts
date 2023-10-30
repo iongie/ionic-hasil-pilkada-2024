@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, combineLatest, mergeMap, of, switchMap, take, takeUntil, throwError } from 'rxjs';
+import { Subject, combineLatest, map, switchMap, takeUntil } from 'rxjs';
 import { Candidate, defaultCandidateValue } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { CandidateService } from 'src/app/services/candidate/candidate.service';
@@ -54,7 +54,7 @@ export class CandidatePage implements OnInit, OnDestroy {
       .subscribe({
         error: (e) => this.dataNotFound = true,
         next: (res: any) => (
-          console.log(res.data),
+          this.dataNotFound= res.data.length === 0 ? true:false,
           this.candidateServ.updateCandidate(res.data),
           this.totalCandidate = res.total_data
         )

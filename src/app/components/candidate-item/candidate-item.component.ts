@@ -41,6 +41,9 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
       no_tps: [this.voteCaleg.no_tps, [Validators.required]],
       total_suara: [this.voteCaleg.total_suara, [Validators.required]]
     })
+
+    console.log(this.status);
+    
   }
   ngOnDestroy(): void {
     this.destroy.next();
@@ -70,7 +73,6 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
 
 
   updateCandidates(updateCandidate: any, id: any){
-    console.log(updateCandidate);
     this.filterCandidate = this.candidates.filter(val => val.id !== id)
     this.dataChanged.emit([updateCandidate, ...this.filterCandidate])
   }

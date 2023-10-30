@@ -144,3 +144,13 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+<ion-footer *ngIf="isInstallPWA" collapse="fade">
+  <ion-toolbar>
+    <ion-title>Harap Install Aplikasi ini</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button fill="solid" (click)="installPWA()">Install</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

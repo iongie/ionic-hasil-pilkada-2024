@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
+import { PwaService } from 'src/app/services/pwa/pwa.service';
 import { TokenService } from 'src/app/services/token/token.service';
 import { defaultUser } from 'src/app/services/user/user.interface';
 import { UserService } from 'src/app/services/user/user.service';
@@ -13,10 +14,13 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HomePage implements OnInit {
   name: string = '';
+  isInstallPWA = false;
+  installPrompt: any;
   constructor(
     private user: UserService,
     private token: TokenService,
-    private router: Router
+    private router: Router,
+    private pwaService: PwaService
   ) { }
 
   ngOnInit() {
@@ -53,5 +57,17 @@ export class HomePage implements OnInit {
       },
     },
   ];
+
+  async installPWA() {
+    this.pwaService.getInstallPrompt
+      .subscribe({
+        next: (installPrompt) => (
+          installPrompt.prompt(),
+          installPrompt.userChoice,
+          this.pwaService.updateInstallPWA(false)
+        ),
+        complete: () => this.pwaService.updateInstallPrompt(null)
+      })
+  }
 
 }

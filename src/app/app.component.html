@@ -1,5 +1,7 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
-  <ion-toast [color]="typeToast" [position]="position" [positionAnchor]="positionAnchor" [isOpen]="isOpen" [message]="isMessage"
-    [duration]="3000" (didDismiss)="setOpen()"></ion-toast>
+  <ion-toast [color]="typeToast" [position]="position" [positionAnchor]="positionAnchor" [isOpen]="isOpen"
+    [message]="isMessage" [duration]="3000" (didDismiss)="setOpen()"></ion-toast>
+  <ion-alert [isOpen]="isAlertOpen" header="Peringatan!" message="Silahkan Update Aplikasi anda"
+    [buttons]="alertButtons" (didDismiss)="setAlertOpen()"></ion-alert>
 </ion-app>

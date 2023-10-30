@@ -2,10 +2,11 @@ import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { Subject, catchError, from, of, switchMap, takeUntil, tap, timer } from 'rxjs';
+import { Subject, combineLatest, from, map, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { Login, defaultLogin } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { MessageResponseService } from 'src/app/services/messageResponse/message-response.service';
+import { PwaService } from 'src/app/services/pwa/pwa.service';
 import { TokenService } from 'src/app/services/token/token.service';
 import { User } from 'src/app/services/user/user.interface';
 import { UserService } from 'src/app/services/user/user.service';
@@ -22,11 +23,13 @@ export interface ResponseLogin {
   styleUrls: ['./login.page.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class LoginPage implements OnInit , OnDestroy{
+export class LoginPage implements OnInit, OnDestroy {
   login: Login = defaultLogin;
   loginForm!: FormGroup;
   destroy = new Subject<void>()
   @Input() viewProgressBar: boolean = false;
+  isInstallPWA = false;
+  installPrompt: any;
   constructor(
     private callApi: CallApiService,
     private token: TokenService,
@@ -34,13 +37,18 @@ export class LoginPage implements OnInit , OnDestroy{
     private fb: FormBuilder,
     private router: Router,
     private messageResponse: MessageResponseService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private pwaService: PwaService
   ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       username: [this.login.username, [Validators.required]],
       password: [this.login.password, [Validators.required]]
+    })
+
+    this.pwaService.getInstallPWA.subscribe(res => {
+      this.isInstallPWA = res
     })
   }
 
@@ -79,13 +87,13 @@ export class LoginPage implements OnInit , OnDestroy{
         tap((loading) => loading.present()),
         switchMap(() => timer(600)),
         switchMap(() => this.callApi.post(this.loginForm.value, 'auth/login')),
-        tap(()=> this.router.navigate(['/home'])),
-        tap(()=> this.loginForm.markAsTouched()),
-        tap(()=> this.loginForm.reset(defaultLogin))
+        tap(() => this.router.navigate(['/home'])),
+        tap(() => this.loginForm.markAsTouched()),
+        tap(() => this.loginForm.reset(defaultLogin))
       ).subscribe(
         {
           next: (res: any) => (
-            this.token.updateToken(res.token), 
+            this.token.updateToken(res.token),
             this.user.updateUser(res.user)
           ),
           error: (e) => (
@@ -96,6 +104,18 @@ export class LoginPage implements OnInit , OnDestroy{
             this.messageResponse.updateTypeResponse('dark')
           )
         })
+  }
+
+  async installPWA() {
+    this.pwaService.getInstallPrompt
+      .subscribe({
+        next: (installPrompt) => (
+          installPrompt.prompt(),
+          installPrompt.userChoice,
+          this.pwaService.updateInstallPWA(false)
+        ),
+        complete: () => this.pwaService.updateInstallPrompt(null)
+      })
   }
 
 }

@@ -40,6 +40,10 @@ const routes: Routes = [
     path: 'candidate',
     loadChildren: () => import('./pages/candidate/candidate.module').then( m => m.CandidatePageModule)
   },
+  {
+    path: 'not-found',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
 ];
 
 @NgModule({
