@@ -31,15 +31,16 @@ let defaultCandidateValue: Candidate = {
 }
 
 interface VoteCaleg {
-    id_caleg: number | null;
+    id_caleg: number | null,
     no_tps: number | null,
-    total_suara: number | null
+    total_suara: number | null,
+    upload_bukti?: string | null
 }
 
 let defaultVoteCaleg: VoteCaleg = {
     id_caleg: null,
     no_tps: null,
-    total_suara: null
+    total_suara: null,
 }
 
 interface ProgressIndicator {

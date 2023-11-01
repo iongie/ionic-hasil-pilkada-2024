@@ -6,6 +6,7 @@ import { Candidate, VoteCaleg, defaultCandidateValue, defaultVoteCaleg } from 's
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { MessageResponseService } from 'src/app/services/messageResponse/message-response.service';
 import { TokenService } from 'src/app/services/token/token.service';
+import { Camera, CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-candidate-item',
@@ -26,6 +27,7 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
   candidate: Candidate = defaultCandidateValue
   filterCandidate: Candidate[] = [defaultCandidateValue]
   @Output() dataChanged = new EventEmitter<object>();
+  upload_bukti?: string = '';
   constructor(
     private modalCtrl: ModalController,
     private fb: FormBuilder,
@@ -109,4 +111,15 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
         }
       )
   }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    var imageUrl = image.webPath;
+    this.upload_bukti = imageUrl
+  };
+  
 }

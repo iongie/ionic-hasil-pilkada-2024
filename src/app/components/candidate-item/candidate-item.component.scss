@@ -1,4 +1,4 @@
-.not__found__data{
+.not__found__data {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -6,19 +6,19 @@
     align-items: center;
 }
 
-.image__not__found__data{
+.image__not__found__data {
     width: 256px;
     height: 256px;
 }
 
-.img__col{
+.img__col {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.candidate{
+.candidate {
     border: 1px var(--ion-color-medium-tint) solid;
     border-radius: 8px;
     display: flex;
@@ -31,23 +31,46 @@
 }
 
 
-.foto_caleg{
+.foto_caleg {
     --border-radius: 14px;
 }
 
-.logo_partai{
+.logo_partai {
     --size: 28px;
     --border-radius: 9999px;
 }
 
-.voteCalegForm{
+.voteCalegForm {
     width: 100%;
-    padding: 16px;
+    padding: 16px;  
 }
 
-.container__chip{
+.container__chip {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 12px;
+}
+
+ion-modal#modal-vote {
+    --border-radius: 6px;
+}
+
+.foto-upload-bukti {
+    --size: 56px;
+    --border-radius: 14px;
+}
+
+.upload-bukti{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; 
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.upload-bukti>ion-button{
+    flex: 1 ;
 }
