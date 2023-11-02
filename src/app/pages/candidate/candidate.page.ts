@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, combineLatest, map, switchMap, takeUntil } from 'rxjs';
+import { Subject, combineLatest, concatMap, delay, map, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { Candidate, defaultCandidateValue } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { CandidateService } from 'src/app/services/candidate/candidate.service';
@@ -17,6 +17,7 @@ export class CandidatePage implements OnInit, OnDestroy {
   candidates: Candidate[] = [];
   totalCandidate: number = 0;
   dataNotFound: boolean = false;
+  loaderSkeleton: boolean = true;
   constructor(
     private actRoute: ActivatedRoute,
     private tokenServ: TokenService,
@@ -47,9 +48,11 @@ export class CandidatePage implements OnInit, OnDestroy {
       this.tokenServ.getToken
     ]).pipe(
       takeUntil(this.destroy),
-      switchMap(([param, token]) => {
+      delay(1000),
+      concatMap(([param, token]) => {
         return this.callApiServ.get('data-caleg/' + param['id'], token)
-      })
+      }),
+      tap(()=> this.loaderSkeleton = false),
     )
       .subscribe({
         error: (e) => this.dataNotFound = true,

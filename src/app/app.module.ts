@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgApexchartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

@@ -8,13 +8,17 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { TopBarDirective } from 'src/app/directives/topBar/top-bar.directive';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    NgApexchartsModule,
+    ComponentsModule
   ],
   declarations: [HomePage, TopBarDirective]
 })

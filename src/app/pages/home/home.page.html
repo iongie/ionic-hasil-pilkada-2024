@@ -1,5 +1,5 @@
 <ion-header [translucent]="true" appTopBar>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Hai, {{name}}</ion-title>
     <ion-buttons slot="secondary">
       <ion-button id="exit-app">
@@ -9,11 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-alert
-  trigger="exit-app"
-  header="Exit App!"
-  [buttons]="exitAppButtons"
-></ion-alert>
+<ion-alert trigger="exit-app" header="Exit App!" [buttons]="exitAppButtons"></ion-alert>
 
 <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="handleScrollStart($event)">
   <ion-card color="primary">
@@ -66,88 +62,38 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid class="hasil__pemilu">
-    <ion-row>
-      <ion-text class="hasil__pemilu__title">
-        <h4>hasil Pemilu 2024</h4>
-      </ion-text>
-    </ion-row>
-    <ion-row>
-      <ion-col size-lg="6" size-sm="12">
-        <ion-card color="primary">
-          <ion-card-content>
-            <ion-list class="ion-no-padding"  lines="none">
-              <ion-item color="primary">
-                <ion-thumbnail class="info_candidate">
-                  <img alt="Information" src="../../../assets/news-politics.png" />
-                </ion-thumbnail>
-                <ion-label class="ion-text-wrap">
-                  <h1>
-                    Hasil Vote DPD Belum ada</h1>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size-lg="6" size-sm="12">
-        <ion-card color="primary">
-          <ion-card-content>
-            <ion-list class="ion-no-padding"  lines="none">
-              <ion-item color="primary">
-                <ion-thumbnail class="info_candidate">
-                  <img alt="Information" src="../../../assets/news-politics.png" />
-                </ion-thumbnail>
-                <ion-label class="ion-text-wrap">
-                  <h1>
-                    Hasil Vote DPR Belum ada</h1>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size-lg="6" size-sm="12">
-        <ion-card color="primary">
-          <ion-card-content>
-            <ion-list class="ion-no-padding"  lines="none">
-              <ion-item color="primary">
-                <ion-thumbnail class="info_candidate">
-                  <img alt="Information" src="../../../assets/news-politics.png" />
-                </ion-thumbnail>
-                <ion-label class="ion-text-wrap">
-                  <h1>
-                    Hasil Vote DPRD Belum ada</h1>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size-lg="6" size-sm="12">
-        <ion-card color="primary">
-          <ion-card-content>
-            <ion-list class="ion-no-padding"  lines="none">
-              <ion-item color="primary">
-                <ion-thumbnail class="info_candidate">
-                  <img alt="Information" src="../../../assets/news-politics.png" />
-                </ion-thumbnail>
-                <ion-label class="ion-text-wrap">
-                  <h1>
-                    Hasil Vote DPRD Provinsi Belum ada</h1>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="chart">
+    <!-- <app-list-ranking></app-list-ranking> -->
+    <app-list-ranking-skeleton></app-list-ranking-skeleton>
+  </div>
+
+  <div class="chart">
+    <ion-card>
+      <ion-card-content>
+        <ion-skeleton-text [animated]="true"  style="width: 20%; height: 44px;"></ion-skeleton-text>
+        <p>Jumlah Pemilih Tangerang Selatan</p>
+        <ion-skeleton-text [animated]="true"  style="width: 100%; height: 380px;"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="chart">
+    <ion-card>
+      <ion-card-content>
+        <h1 style="font-size: 2.25rem;">{{30000 | number}}</h1>
+        <p>Jumlah Pemilih Tangerang Selatan</p>
+        <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [dataLabels]="chartOptions.dataLabels!"
+          [stroke]="chartOptions.stroke!" [colors]="chartOptions.colors!" [plotOptions]="chartOptions.plotOptions!"
+          [yaxis]="chartOptions.yaxis!" [xaxis]="chartOptions.xaxis!" [legend]="chartOptions.legend!"
+          [tooltip]="chartOptions.tooltip!"></apx-chart>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
 
 
 <ion-footer *ngIf="isInstallPWA" collapse="fade">
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
     <ion-title>Harap Install Aplikasi ini</ion-title>
     <ion-buttons slot="secondary">
       <ion-button fill="solid" (click)="installPWA()">Install</ion-button>

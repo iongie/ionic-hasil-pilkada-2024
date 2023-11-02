@@ -4,13 +4,19 @@ import { CandidateItemComponent } from './candidate-item/candidate-item.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { ListRankingComponent } from './list-ranking/list-ranking.component';
+import { ListRankingSkeletonComponent } from './progress-indicator/list-ranking-skeleton/list-ranking-skeleton.component';
+import { CandidateItemSkeletonComponent } from './progress-indicator/candidate-item-skeleton/candidate-item-skeleton.component';
 
 
 
 @NgModule({
   declarations: [
     CandidateItemComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ListRankingComponent,
+    ListRankingSkeletonComponent,
+    CandidateItemSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +26,10 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
   ],
   exports: [
     CandidateItemComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ListRankingComponent,
+    ListRankingSkeletonComponent,
+    CandidateItemSkeletonComponent
   ]
 })
 export class ComponentsModule { }

@@ -3,10 +3,17 @@
     <ion-back-button (click)="backToHistory()"></ion-back-button>
   </ion-buttons>
   <ion-toolbar>
-    <ion-searchbar (input)="onInputChange($event)" type="text" name="search-input" id="search-input" placeholder="Telusuri Notes Kamu" class="search__input"></ion-searchbar>
+    <ion-searchbar (input)="onInputChange($event)" type="text" name="search-input" id="search-input"
+      placeholder="Telusuri Notes Kamu" class="search__input"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-candidate-item [total]="totalCandidate" [candidates]="candidates" [status]="dataNotFound" (dataChanged)="onDataChanged($event)"></app-candidate-item>
+  <ng-container *ngIf="!loaderSkeleton">
+    <app-candidate-item [total]="totalCandidate" [candidates]="candidates" [status]="dataNotFound"
+      (dataChanged)="onDataChanged($event)"></app-candidate-item>
+  </ng-container>
+  <ng-container  *ngIf="loaderSkeleton">
+    <app-candidate-item-skeleton></app-candidate-item-skeleton>
+  </ng-container>
 </ion-content>
