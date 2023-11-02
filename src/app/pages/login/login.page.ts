@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { Subject, combineLatest, from, map, switchMap, takeUntil, tap, timer } from 'rxjs';
+import { Subject, combineLatest, delay, from, map, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { Login, defaultLogin } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { MessageResponseService } from 'src/app/services/messageResponse/message-response.service';
@@ -85,7 +85,7 @@ export class LoginPage implements OnInit, OnDestroy {
       })).pipe(
         takeUntil(this.destroy),
         tap((loading) => loading.present()),
-        switchMap(() => timer(600)),
+        delay(500),
         switchMap(() => this.callApi.post(this.loginForm.value, 'auth/login')),
         tap(() => this.router.navigate(['/home'])),
         tap(() => this.loginForm.markAsTouched()),
