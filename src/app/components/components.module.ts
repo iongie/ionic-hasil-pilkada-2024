@@ -7,6 +7,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ListRankingComponent } from './list-ranking/list-ranking.component';
 import { ListRankingSkeletonComponent } from './progress-indicator/list-ranking-skeleton/list-ranking-skeleton.component';
 import { CandidateItemSkeletonComponent } from './progress-indicator/candidate-item-skeleton/candidate-item-skeleton.component';
+import { ChartSkeletonComponent } from './progress-indicator/chart-skeleton/chart-skeleton.component';
 
 
 
@@ -16,7 +17,8 @@ import { CandidateItemSkeletonComponent } from './progress-indicator/candidate-i
     ProgressBarComponent,
     ListRankingComponent,
     ListRankingSkeletonComponent,
-    CandidateItemSkeletonComponent
+    CandidateItemSkeletonComponent,
+    ChartSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { CandidateItemSkeletonComponent } from './progress-indicator/candidate-i
     ProgressBarComponent,
     ListRankingComponent,
     ListRankingSkeletonComponent,
-    CandidateItemSkeletonComponent
+    CandidateItemSkeletonComponent,
+    ChartSkeletonComponent
   ]
 })
 export class ComponentsModule { }
