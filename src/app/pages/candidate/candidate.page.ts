@@ -58,6 +58,7 @@ export class CandidatePage implements OnInit, OnDestroy {
         error: (e) => this.dataNotFound = true,
         next: (res: any) => (
           this.dataNotFound= res.data.length === 0 ? true:false,
+          console.log(res.data),
           this.candidateServ.updateCandidate(res.data),
           this.totalCandidate = res.total_data
         )

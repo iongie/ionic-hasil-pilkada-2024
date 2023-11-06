@@ -21,7 +21,7 @@
           </ion-thumbnail>
           <ion-label class="ion-text-wrap">
             <h1>
-              Selamat datang, ke aplikasi menghitung cepat Pemilihan Umum 2004</h1>
+              Selamat datang, {{name}}</h1>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -63,13 +63,28 @@
   </ion-grid>
 
   <div class="chart">
-    <!-- <app-list-ranking></app-list-ranking> -->
-    <app-list-ranking-skeleton></app-list-ranking-skeleton>
+    <app-list-ranking></app-list-ranking>
+    <!-- <app-list-ranking *ngIf="!resultDPDLoading"></app-list-ranking> -->
+    <!-- <app-list-ranking-skeleton  *ngIf="resultDPDLoading"></app-list-ranking-skeleton> -->
   </div>
 
-  <div class="chart">
-    <app-chart-skeleton></app-chart-skeleton>
-  </div>
+  <!-- <div class="chart">
+    <ng-container *ngIf="barLoading">
+      <app-chart-skeleton [subtitle]="'jumlah suara tangerang selatan'"></app-chart-skeleton>
+    </ng-container>
+    <ng-container *ngIf="!barLoading">
+      <ion-card>
+        <ion-card-content>
+          <h1 style="font-size: 2.25rem;">{{30000 | number}}</h1>
+          <p>Jumlah Pemilih Tangerang Selatan</p>
+          <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
+            [dataLabels]="chartOptions.dataLabels!" [stroke]="chartOptions.stroke!" [colors]="chartOptions.colors!"
+            [plotOptions]="chartOptions.plotOptions!" [yaxis]="chartOptions.yaxis!" [xaxis]="chartOptions.xaxis!"
+            [legend]="chartOptions.legend!" [tooltip]="chartOptions.tooltip!"></apx-chart>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </div> -->
 
   <div class="chart">
     <ion-card>
