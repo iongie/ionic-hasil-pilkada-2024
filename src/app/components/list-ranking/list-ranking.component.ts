@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-list-ranking',
@@ -7,7 +7,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class ListRankingComponent  implements OnInit {
-
+  @Input() title: string | null = null;
+  @Input() subtitle: string | null = null;
   constructor() { }
 
   ngOnInit() {}

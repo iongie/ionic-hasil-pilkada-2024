@@ -94,7 +94,9 @@ export class LoginPage implements OnInit, OnDestroy {
         {
           next: (res: any) => (
             this.token.updateToken(res.token),
-            this.user.updateUser(res.user)
+            this.user.updateUser(res.user),
+            localStorage.setItem('tok', res.token),
+            localStorage.setItem('us', res.user)
           ),
           error: (e) => (
             this.messageResponse.updateMessageResponse(e.error.message),

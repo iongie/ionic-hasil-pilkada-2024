@@ -1,0 +1,14 @@
+.info-vote{
+    border: 1px solid var(--ion-color-medium);
+    border-radius: 16px;
+    height: 137.20px;
+    overflow-y: auto;
+}
+
+.not__found__data {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

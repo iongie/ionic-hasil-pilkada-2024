@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, combineLatest, concatMap, delay, map, switchMap, takeUntil, tap, timer } from 'rxjs';
+import { Subject, combineLatest, concatMap, delay, forkJoin, map, mergeMap, switchMap, takeUntil, tap, timeout, timer } from 'rxjs';
 import { Candidate, defaultCandidateValue } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { CandidateService } from 'src/app/services/candidate/candidate.service';
@@ -33,7 +33,7 @@ export class CandidatePage implements OnInit, OnDestroy {
       )
       .subscribe({
         error: (e) => (this.dataNotFound = e),
-        next: (res) => (this.candidates = res) 
+        next: (res) => (this.candidates = res)
       })
   }
 
@@ -49,18 +49,29 @@ export class CandidatePage implements OnInit, OnDestroy {
     ]).pipe(
       takeUntil(this.destroy),
       delay(1000),
-      concatMap(([param, token]) => {
-        return this.callApiServ.get('data-caleg/' + param['id'], token)
+      switchMap(([param, token]) => {
+        return this.callApiServ.get('data-caleg/' + param['id'], token).pipe(
+          map((tambah) => [tambah, token])
+        )
       }),
-      tap(()=> this.loaderSkeleton = false),
+      tap(([res, token]: any) => this.totalCandidate = res.total_data),
+      switchMap(([param, token]: any) => {
+        const observablesArray = param.data.map((val: Candidate) =>
+          this.callApiServ.get('get-total-suara-caleg/' + val.no_urut, token).pipe(
+            map((suara: any) => ({ ...val, suara: suara.total_suara }))
+          )
+        );
+
+        return forkJoin(observablesArray)
+      }),
+      tap(() => this.loaderSkeleton = false),
     )
       .subscribe({
-        error: (e) => this.dataNotFound = true,
+        error: (e) => null,
         next: (res: any) => (
-          this.dataNotFound= res.data.length === 0 ? true:false,
-          console.log(res.data),
-          this.candidateServ.updateCandidate(res.data),
-          this.totalCandidate = res.total_data
+          this.dataNotFound = res.length === 0 ? true : false,
+          console.log(res),
+          this.candidateServ.updateCandidate(res)
         )
       })
   }
@@ -73,7 +84,7 @@ export class CandidatePage implements OnInit, OnDestroy {
     this.candidateServ.filterCandidate(ev.target.value)
       .pipe(takeUntil(this.destroy))
       .subscribe(res => {
-        this.dataNotFound= res.length === 0 ? true:false
+        this.dataNotFound = res.length === 0 ? true : false
         this.candidates = res
       })
   }
@@ -81,6 +92,21 @@ export class CandidatePage implements OnInit, OnDestroy {
   backToHistory() {
     this.dataNotFound = false
     this.candidateServ.updateCandidate([defaultCandidateValue])
+  }
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      this.getData();
+      this.candidateServ.getCandidate
+        .pipe(
+          takeUntil(this.destroy),
+        )
+        .subscribe({
+          error: (e) => (this.dataNotFound = e),
+          next: (res) => (this.candidates = res)
+        })
+      event.target.complete();
+    }, 2000);
   }
 
 }

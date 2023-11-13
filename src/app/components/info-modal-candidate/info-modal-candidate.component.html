@@ -1,0 +1,31 @@
+<ion-list>
+  <ion-item button detail="true">
+    <ion-thumbnail class="foto_caleg" slot="start">
+      <ion-img [src]="candidate.foto_caleg" [alt]="candidate.nama_calon"></ion-img>
+    </ion-thumbnail>
+    <div class="container">
+      <div class="container__chip">
+        <ion-note>{{candidate.no_urut}}</ion-note>
+      </div>
+      <ng-container *ngIf="candidate.nama_partai !== '-'">
+        <ion-chip color="medium" [disabled]="true">
+          <ion-avatar>
+            <img [alt]="candidate.nama_calon" [src]="candidate.foto_caleg" />
+          </ion-avatar>
+          <ion-label>{{candidate.nama_calon}}</ion-label>
+        </ion-chip>
+      </ng-container>
+      <ion-label class="ion-text-uppercase" color="dark" class="ion-text-wrap">
+        <strong>{{candidate.nama_calon}}</strong>
+      </ion-label>
+      <div class="container__chip">
+        <ion-badge>{{candidate.jenis_kelamin}}</ion-badge>
+        <ion-badge color="medium">{{candidate.dapil}}</ion-badge>
+      </div>
+    </div>
+    <div slot="end">
+      <ion-badge color="warning">{{candidate.suara == null ? 0: candidate.suara}}
+        Suara</ion-badge>
+    </div>
+  </ion-item>
+</ion-list>

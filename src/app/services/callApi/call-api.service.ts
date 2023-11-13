@@ -6,7 +6,7 @@ import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class CallApiService {
-  url = 'https://api.pilkada.tangerangselatankota.go.id/'
+  url = 'https://apipilkada.tangerangselatankota.go.id/'
   constructor(
     private http: HttpClient
   ) { }
@@ -16,7 +16,6 @@ export class CallApiService {
     const cekToken = token !== undefined
     ? {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token
       })
     }

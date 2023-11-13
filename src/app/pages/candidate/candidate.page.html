@@ -9,11 +9,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ng-container *ngIf="!loaderSkeleton">
     <app-candidate-item [total]="totalCandidate" [candidates]="candidates" [status]="dataNotFound"
       (dataChanged)="onDataChanged($event)"></app-candidate-item>
   </ng-container>
-  <ng-container  *ngIf="loaderSkeleton">
+  <ng-container *ngIf="loaderSkeleton">
     <app-candidate-item-skeleton></app-candidate-item-skeleton>
   </ng-container>
 </ion-content>

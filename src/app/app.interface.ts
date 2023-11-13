@@ -13,7 +13,7 @@ interface Candidate {
     nama_calon: string;
     nama_partai: string;
     no_urut: number;
-    jumlah_suara?: number | null;
+    suara?: number | null;
 }
 
 let defaultCandidateValue: Candidate = {
@@ -27,7 +27,7 @@ let defaultCandidateValue: Candidate = {
     nama_calon: '',
     nama_partai: '',
     no_urut: 0,
-    jumlah_suara: null
+    suara: null
 }
 
 interface VoteCaleg {
@@ -58,6 +58,22 @@ let defaultLogin: Login = {
     password: null
 }
 
+interface Vote {
+    id: number | null;
+    id_caleg: number | null;
+    tps: number | null;
+    suara: number | null;
+    file_bukti: string| null;
+}
+
+let defaultVote : Vote =  {
+    id: null,
+    id_caleg:  null,
+    tps: null,
+    suara: null,
+    file_bukti: null
+}
+
 export {
     Candidate,
     defaultCandidateValue,
@@ -66,5 +82,7 @@ export {
     ProgressIndicator,
     defaultProgressIndicator,
     Login,
-    defaultLogin
+    defaultLogin,
+    Vote,
+    defaultVote
 }

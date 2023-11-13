@@ -19,10 +19,14 @@
           <ion-thumbnail class="info_candidate">
             <img alt="Information" src="../../../assets/candidate.png" />
           </ion-thumbnail>
-          <ion-label class="ion-text-wrap">
-            <h1>
-              Selamat datang, {{name}}</h1>
-          </ion-label>
+          <div>
+            <ion-label class="ion-text-wrap">
+              <h1>Selamat Datang, {{name}}</h1>
+            </ion-label>
+            <ion-label class="ion-text-wrap ion-text-uppercase">
+              <p>Dapil {{dapil}}</p>
+            </ion-label>
+          </div>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -62,12 +66,6 @@
     </ion-row>
   </ion-grid>
 
-  <div class="chart">
-    <app-list-ranking></app-list-ranking>
-    <!-- <app-list-ranking *ngIf="!resultDPDLoading"></app-list-ranking> -->
-    <!-- <app-list-ranking-skeleton  *ngIf="resultDPDLoading"></app-list-ranking-skeleton> -->
-  </div>
-
   <!-- <div class="chart">
     <ng-container *ngIf="barLoading">
       <app-chart-skeleton [subtitle]="'jumlah suara tangerang selatan'"></app-chart-skeleton>
@@ -97,6 +95,40 @@
           [tooltip]="chartOptions.tooltip!"></apx-chart>
       </ion-card-content>
     </ion-card>
+  </div>
+
+
+
+  <div class="chart">
+    <app-list-ranking [title]="'Dewan Perwakilan Daerah'"
+      [subtitle]="'hasil perhitungan untuk daerah Tangerang Selatan'"></app-list-ranking>
+    <!-- <app-list-ranking *ngIf="!resultDPDLoading"></app-list-ranking> -->
+    <!-- <app-list-ranking-skeleton  *ngIf="resultDPDLoading"></app-list-ranking-skeleton> -->
+  </div>
+
+
+  <div class="chart">
+    <app-list-ranking [title]="'Dewan Perwakilan Rakyat'"
+      [subtitle]="'hasil perhitungan untuk daerah Tangerang Selatan'"></app-list-ranking>
+    <!-- <app-list-ranking *ngIf="!resultDPDLoading"></app-list-ranking> -->
+    <!-- <app-list-ranking-skeleton  *ngIf="resultDPDLoading"></app-list-ranking-skeleton> -->
+  </div>
+
+
+  <div class="chart">
+    <app-list-ranking [title]="'Dewan Perwakilan Rakyat Daerah'"
+      [subtitle]="'hasil perhitungan untuk daerah Tangerang Selatan'"></app-list-ranking>
+    <!-- <app-list-ranking *ngIf="!resultDPDLoading"></app-list-ranking> -->
+    <!-- <app-list-ranking-skeleton  *ngIf="resultDPDLoading"></app-list-ranking-skeleton> -->
+  </div>
+
+
+
+  <div class="chart">
+    <app-list-ranking [title]="'DPRD Provinsi'"
+      [subtitle]="'hasil perhitungan untuk daerah Tangerang Selatan'"></app-list-ranking>
+    <!-- <app-list-ranking *ngIf="!resultDPDLoading"></app-list-ranking> -->
+    <!-- <app-list-ranking-skeleton  *ngIf="resultDPDLoading"></app-list-ranking-skeleton> -->
   </div>
 </ion-content>
 

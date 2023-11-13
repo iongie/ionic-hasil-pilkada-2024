@@ -31,6 +31,7 @@ export type ChartOptions = {
 })
 export class HomePage implements OnInit {
   name: string = '';
+  dapil: string = '';
   isInstallPWA = false;
   installPrompt: any;
   @ViewChild("chart") chart!: ChartComponent;
@@ -57,6 +58,7 @@ export class HomePage implements OnInit {
       this.tokenServ.getToken
     ]).subscribe(res => {
       this.name = res[0].name
+      this.dapil = res[0].dapil[0]
       console.log(res);
     })
     this.getDataBarChart();
