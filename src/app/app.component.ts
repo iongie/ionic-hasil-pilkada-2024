@@ -48,7 +48,6 @@ export class AppComponent implements OnInit {
     this.swUpdate.versionUpdates
       .pipe(
         map((ver) => {
-          console.log(ver);
           return ver.type !== 'NO_NEW_VERSION_DETECTED' ? true : false
         })
       )

@@ -59,7 +59,6 @@ export class HomePage implements OnInit {
     ]).subscribe(res => {
       this.name = res[0].name
       this.dapil = res[0].dapil[0]
-      console.log(res);
     })
     this.getDataBarChart();
     this.getDataRankingDPD();
@@ -75,7 +74,6 @@ export class HomePage implements OnInit {
   }
 
   handleScrollStart(ev: any) {
-    // console.log(ev);
   }
 
   getDataBarChart(){

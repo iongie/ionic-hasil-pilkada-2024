@@ -11,7 +11,6 @@ export class TopBarDirective {
 
   @HostListener('ionScroll', ['']) onScroll(e:any){
     const scrollPosition = window.scrollY;
-    console.log(scrollPosition);
     scrollPosition > 0 
     ? this.renderer.addClass(this.el.nativeElement, 'ion-no-border')
     : this.renderer.removeClass(this.el.nativeElement, 'ion-no-border')

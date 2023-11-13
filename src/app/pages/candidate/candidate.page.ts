@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, combineLatest, concatMap, delay, forkJoin, map, mergeMap, switchMap, takeUntil, tap, timeout, timer } from 'rxjs';
+import { Subject, combineLatest, delay, forkJoin, map, switchMap, takeUntil, tap } from 'rxjs';
 import { Candidate, defaultCandidateValue } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { CandidateService } from 'src/app/services/candidate/candidate.service';
@@ -70,14 +70,23 @@ export class CandidatePage implements OnInit, OnDestroy {
         error: (e) => null,
         next: (res: any) => (
           this.dataNotFound = res.length === 0 ? true : false,
-          console.log(res),
           this.candidateServ.updateCandidate(res)
         )
       })
   }
 
   onDataChanged(updateCandidate: any) {
-    this.candidateServ.updateCandidate(updateCandidate)
+    if (updateCandidate === 'update'){
+      this.getData();
+      this.candidateServ.getCandidate
+        .pipe(
+          takeUntil(this.destroy),
+        )
+        .subscribe({
+          error: (e) => (this.dataNotFound = e),
+          next: (res) => (this.candidates = res)
+        })
+    }
   }
 
   onInputChange(ev: any) {

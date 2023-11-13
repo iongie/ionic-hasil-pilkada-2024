@@ -26,7 +26,7 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
   ];
   candidate: Candidate = defaultCandidateValue
   filterCandidate: Candidate[] = [defaultCandidateValue]
-  @Output() dataChanged = new EventEmitter<object>();
+  @Output() dataChanged = new EventEmitter<string>();
   upload_bukti_camera: any;
   updateVote: boolean = false;
   idDataVote: number = 0;
@@ -46,9 +46,6 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
       total_suara: [this.voteCaleg.total_suara, [Validators.required]],
       file_bukti: [null, [Validators.required]]
     })
-
-    console.log(this.status);
-
   }
   ngOnDestroy(): void {
     this.destroy.next();
@@ -78,8 +75,8 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
 
 
   updateCandidates(updateCandidate: any, id: any) {
-    this.filterCandidate = this.candidates.filter(val => val.id !== id)
-    this.dataChanged.emit([updateCandidate, ...this.filterCandidate])
+    // this.filterCandidate = this.candidates.filter(val => val.id !== id)
+    // this.dataChanged.emit([updateCandidate, ...this.filterCandidate])
   }
 
   getFileFromBase64(base64: string, fileName: string) {
@@ -127,7 +124,7 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
         switchMap(() => this.token.getToken),
         switchMap((token) => this.callApi.post(voteFormData, 'vote-caleg', token)),
         tap(() => this.modalCtrl.dismiss(this.voteCaleg, 'confirm')),
-        tap(() => this.updateCandidates(this.candidate, this.candidate.id)),
+        tap(() => this.dataChanged.emit('update')),
         tap(() => this.upload_bukti_camera = undefined),
         tap(() => this.voteCalegForm.reset(defaultVoteCaleg)),
         takeUntil(this.destroy),
@@ -164,7 +161,7 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
         switchMap(() => this.token.getToken),
         switchMap((token) => this.callApi.post(updateVoteFormData, `update-vote-caleg/${this.idDataVote}`, token)),
         tap(() => this.modalCtrl.dismiss(this.voteCaleg, 'confirm')),
-        tap(() => this.updateCandidates(this.candidate, this.candidate.id)),
+        tap(() => this.dataChanged.emit('update')),
         tap(() => this.upload_bukti_camera = undefined),
         tap(() => this.voteCalegForm.reset(defaultVoteCaleg)),
         tap(() => this.voteCalegForm.get('no_tps')?.enable()),
@@ -198,7 +195,6 @@ export class CandidateItemComponent implements OnInit, OnDestroy {
   }
 
   infoVote(event: any) {
-    console.log(event);
     this.idDataVote = event.id;
     this.updateVote = true;
     this.voteCalegForm.patchValue({

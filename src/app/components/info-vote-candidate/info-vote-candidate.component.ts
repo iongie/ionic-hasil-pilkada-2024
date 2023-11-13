@@ -31,7 +31,6 @@ export class InfoVoteCandidateComponent  implements OnInit {
   ngOnInit() {
     this.getData();
     this.voteServ.getVote.subscribe(res => {
-      console.log('info vote state', res),
       this.voteInfo = res
     })
   }
@@ -55,7 +54,6 @@ export class InfoVoteCandidateComponent  implements OnInit {
       .subscribe({
         error: (e) => this.resultVoteLoading = true,
         next: (res: any) => (
-          console.log('info vote', res),
           this.voteServ.updateVote(res.data),
           this.dataInfoVoteNotFound= res.data.length === 0 ? true:false
         )
